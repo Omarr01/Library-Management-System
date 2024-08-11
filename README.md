@@ -136,10 +136,11 @@ Before accessing any API endpoint, you need to authenticate using a username and
 
 - **Allow a patron to borrow a book**:
   - `POST /api/borrow/{bookId}/patron/{patronId}`
-  - **Response**: A confirmation message or status.
+  - **Response**: The created BorrowingRecordDto object with its ID.
 
 - **Record the return of a borrowed book**:
-  - **Response**: The updated `BorrowingRecordDto` object with its ID.
+  - `POST /api/return/{bookId}/patron/{patronId}`
+  - **Response**: The updated BorrowingRecordDto object with its ID.
 
 ## Data Storage
 
