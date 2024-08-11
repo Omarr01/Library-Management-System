@@ -35,6 +35,20 @@ The Library Management System API is built using Spring Boot. It allows libraria
    - Locate `MaidsLibraryManagementSystemApplication.java` in the `com.maids_library_management_system` package.
    - Right-click on `MaidsLibraryManagementSystemApplication.java` and select `Run As` > `Java Application`.
    - The application will start, and the API will be available at `http://localhost:8080`.
+  
+## Security Authorization
+
+### Default Credentials
+
+For development purposes, Spring Boot generates a default security password. The default username is `user`, and the password is dynamically generated every time the application is started.
+
+1. **Authentication Required**:
+   - Before accessing any API endpoint, you need to provide the username and password for authentication.
+
+2. **Making Authenticated Requests Using Postman**
+1. Go to the `Authorization` tab.
+2. Select `Basic Auth` from the `Type` dropdown.
+3. Enter the username `user` and the generated password.
 
 ## API Endpoints
 
