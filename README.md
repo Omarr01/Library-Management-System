@@ -1,4 +1,4 @@
-# Library Management System
+# Documentation for Library Management System
 
 ## Project Overview
 
@@ -145,8 +145,3 @@ The Library Management System API is built using Spring Boot. It allows libraria
 
 - Unit tests are written to validate API functionality.
 - Testing frameworks used: Mockito, and SpringBootTest.
-
-## Documentation
-
-- **Running the Application**: Follow the setup instructions to build and run the application using Eclipse.
-- **Interacting with API Endpoints**: Use the provided API endpoints for managing books, patrons, and borrowing records.
