@@ -42,13 +42,15 @@ The Library Management System API is built using Spring Boot. It allows libraria
 
 For development purposes, Spring Boot generates a default security password. The default username is `user`, and the password is dynamically generated every time the application is started.
 
-1. **Authentication Required**:
-   - Before accessing any API endpoint, you need to provide the username and password for authentication.
+## Authentication Required
 
-2. **Making Authenticated Requests Using Postman**
-1. Go to the `Authorization` tab.
-2. Select `Basic Auth` from the `Type` dropdown.
-3. Enter the username `user` and the generated password.
+Before accessing any API endpoint, you need to authenticate using a username and password.
+
+### Making Authenticated Requests Using Postman
+
+1. Open Postman and go to the **Authorization** tab.
+2. Select **Basic Auth** from the **Type** dropdown menu.
+3. Enter the username `user` and the provided password.
 
 ## API Endpoints
 
