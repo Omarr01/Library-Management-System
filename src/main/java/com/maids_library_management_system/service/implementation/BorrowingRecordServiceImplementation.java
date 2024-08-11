@@ -1,72 +1,53 @@
 package com.maids_library_management_system.service.implementation;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.maids_library_management_system.entity.Book;
 import com.maids_library_management_system.entity.BorrowingRecord;
-import com.maids_library_management_system.entity.Patron;
+import com.maids_library_management_system.repository.BookRepository;
 import com.maids_library_management_system.repository.BorrowingRecordRepository;
-import com.maids_library_management_system.service.BookService;
+import com.maids_library_management_system.repository.PatronRepository;
 import com.maids_library_management_system.service.BorrowingRecordService;
-import com.maids_library_management_system.service.PatronService;
 
 @Service
 public class BorrowingRecordServiceImplementation implements BorrowingRecordService {
-	@Autowired
-	private final BorrowingRecordRepository borrowingRecordRepository;
-	
-	@Autowired
-	private final BookService bookService;
-	
-	@Autowired
-	private final PatronService patronService;
 
-	public BorrowingRecordServiceImplementation(BorrowingRecordRepository borrowingRecordRepository,
-			BookService bookService, PatronService patronService) {
-		this.borrowingRecordRepository = borrowingRecordRepository;
-		this.bookService = bookService;
-		this.patronService = patronService;
-	}
+    @Autowired
+    private final BorrowingRecordRepository borrowingRecordRepository;
+    
+    @Autowired
+    private final BookRepository bookRepository;
+    
+    @Autowired
+    private final PatronRepository patronRepository;
 
-	@Override
-	public BorrowingRecord addBorrowingRecord(Long bookId, Long patronId) {
-		Optional<Book> bookOptional = bookService.getBookById(bookId);
-		Optional<Patron> patronOptional = patronService.getPatronById(patronId);
-		
-		if (bookOptional.isPresent() && patronOptional.isPresent()) {
-			BorrowingRecord borrowingRecord = new BorrowingRecord();
-			
-			Book book = bookOptional.get();
-            Patron patron = patronOptional.get();
-            
-            borrowingRecord.setBook(book);
-            borrowingRecord.setPatron(patron);
-            borrowingRecord.setBorrowDate(new Date());
-            
-            return borrowingRecordRepository.save(borrowingRecord);
-		}
-		else {
-            throw new IllegalArgumentException("Book or Patron not found");
-        }
-	}
+    public BorrowingRecordServiceImplementation(BorrowingRecordRepository borrowingRecordRepository, 
+                                                BookRepository bookRepository, 
+                                                PatronRepository patronRepository) {
+        this.borrowingRecordRepository = borrowingRecordRepository;
+        this.bookRepository = bookRepository;
+        this.patronRepository = patronRepository;
+    }
 
-	@Override
-	public BorrowingRecord addReturnDate(Long bookId, Long patronId) {
-		Optional<BorrowingRecord> borrowingRecordOptional = borrowingRecordRepository
-	            .findByBookIdAndPatronIdAndReturnDateIsNull(bookId, patronId);
+    public Optional<BorrowingRecord> addBorrowingRecord(Long bookId, Long patronId) {
+        return bookRepository.findById(bookId)
+                .flatMap(book -> patronRepository.findById(patronId)
+                        .map(patron -> {
+                            BorrowingRecord record = new BorrowingRecord();
+                            record.setBook(book);
+                            record.setPatron(patron);
+                            record.setBorrowDate(new java.util.Date());
+                            return borrowingRecordRepository.save(record);
+                        }));
+    }
 
-	    if (borrowingRecordOptional.isPresent()) {
-	        BorrowingRecord borrowingRecord = borrowingRecordOptional.get();
-	        borrowingRecord.setReturnDate(new Date());
-
-	        return borrowingRecordRepository.save(borrowingRecord);
-	    } else {
-	        throw new IllegalArgumentException("Borrowing record not found or book already returned");
-	    }
-	}
-
+    public Optional<BorrowingRecord> addReturnDate(Long bookId, Long patronId) {
+        return borrowingRecordRepository.findByBookIdAndPatronIdAndReturnDateIsNull(bookId, patronId)
+                .map(record -> {
+                    record.setReturnDate(new java.util.Date());
+                    return borrowingRecordRepository.save(record);
+                });
+    }
 }
