@@ -5,9 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.maids_library_management_system.dto.BorrowingRecordDto;
 import com.maids_library_management_system.entity.Book;
 import com.maids_library_management_system.entity.BorrowingRecord;
 import com.maids_library_management_system.entity.Patron;

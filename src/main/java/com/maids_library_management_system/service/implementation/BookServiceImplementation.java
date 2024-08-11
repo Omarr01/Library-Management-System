@@ -39,18 +39,21 @@ public class BookServiceImplementation implements BookService {
 	}
 	
 	@Override
-	public Book updateBook(Long id, BookDto bookDetails) {
+	public Optional<Book> updateBook(Long id, BookDto bookDetails) {
 		return bookRepository.findById(id).map(book -> {
-			book.setTitle(bookDetails.getTitle());
-			book.setAuthor(bookDetails.getAuthor());
-			book.setPublicationYear(bookDetails.getPublicationYear());
-			book.setIsbn(bookDetails.getIsbn());
-			return bookRepository.save(book);
-		}).orElseThrow(() -> new RuntimeException("Book not found with id " + id));
+	        book.setTitle(bookDetails.getTitle());
+	        book.setAuthor(bookDetails.getAuthor());
+	        book.setPublicationYear(bookDetails.getPublicationYear());
+	        book.setIsbn(bookDetails.getIsbn());
+	        return bookRepository.save(book);
+	    });
 	}
 	
 	@Override
-	public void deleteBook(Long id) {
-        bookRepository.deleteById(id);
-    }
+	public Optional<Book> deleteBook(Long id) {
+	    return bookRepository.findById(id).map(book -> {
+	        bookRepository.delete(book);
+	        return book;
+	    });
+	}
 }

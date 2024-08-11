@@ -10,6 +10,7 @@ import com.maids_library_management_system.dto.PatronDto;
 import com.maids_library_management_system.entity.Patron;
 import com.maids_library_management_system.service.implementation.PatronServiceImplementation;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -35,12 +36,12 @@ public class PatronController {
 	}
 	
 	@PostMapping
-	public Patron addPatron(@RequestBody PatronDto patronDto) {
+	public Patron addPatron(@Valid @RequestBody PatronDto patronDto) {
 		return patronServiceImplementation.addPatron(patronDto);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Patron> updatePatron(@PathVariable Long id, @RequestBody PatronDto patronDetails) {
+	public ResponseEntity<Patron> updatePatron(@PathVariable Long id, @Valid @RequestBody PatronDto patronDetails) {
 		return ResponseEntity.ok(patronServiceImplementation.updatePatron(id, patronDetails));
 	}
 	

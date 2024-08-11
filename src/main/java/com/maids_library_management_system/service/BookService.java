@@ -12,7 +12,7 @@ public interface BookService {
 
 	public Book addBook(BookDto bookDto);
 	
-	public Book updateBook(Long id, BookDto bookDetails);
+	public Optional<Book> updateBook(Long id, BookDto bookDetails);
 
-	public void deleteBook(Long id);
+	public Optional<Book> deleteBook(Long id);
 }
