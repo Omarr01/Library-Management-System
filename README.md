@@ -42,7 +42,7 @@ The Library Management System API is built using Spring Boot. It allows libraria
 
 For development purposes, Spring Boot generates a default security password. The default username is `user`, and the password is dynamically generated every time the application is started.
 
-## Authentication Required
+### Authentication Required
 
 Before accessing any API endpoint, you need to authenticate using a username and password.
 
