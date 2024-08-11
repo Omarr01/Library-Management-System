@@ -13,7 +13,7 @@ public interface PatronService {
 
 	public Patron addPatron(PatronDto patronDto);
 	
-	public Patron updatePatron(Long id, PatronDto patronDto);
+	public Optional<Patron> updatePatron(Long id, PatronDto patronDto);
 
-	public void deletePatron(Long id);
+	public Optional<Patron> deletePatron(Long id);
 }

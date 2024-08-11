@@ -39,18 +39,20 @@ public class PatronServiceImplementation implements PatronService {
 	}
 
 	@Override
-	public Patron updatePatron(Long id, PatronDto patronDetails) {
-		return patronRepository.findById(id).map(patron -> {
-			patron.setName(patronDetails.getName());
-			patron.setEmail(patronDetails.getEmail());
-			patron.setPhoneNumber(patronDetails.getPhoneNumber());
-			return patronRepository.save(patron);
-		}).orElseThrow(() -> new RuntimeException("Patron not found with id " + id));
-	}
+	public Optional<Patron> updatePatron(Long id, PatronDto patronDetails) {
+        return patronRepository.findById(id).map(patron -> {
+            patron.setName(patronDetails.getName());
+            patron.setEmail(patronDetails.getEmail());
+            patron.setPhoneNumber(patronDetails.getPhoneNumber());
+            return patronRepository.save(patron);
+        });
+    }
 
 	@Override
-	public void deletePatron(Long id) {
-		patronRepository.deleteById(id);
-	}
-
+    public Optional<Patron> deletePatron(Long id) {
+        return patronRepository.findById(id).map(patron -> {
+            patronRepository.deleteById(id);
+            return patron;
+        });
+    }
 }

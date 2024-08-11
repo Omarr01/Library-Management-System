@@ -17,6 +17,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+    
+    @ExceptionHandler(PatronNotFoundException.class)
+    public ResponseEntity<String> handlePatronNotFoundException(PatronNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
